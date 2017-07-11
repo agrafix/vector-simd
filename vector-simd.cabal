@@ -19,9 +19,11 @@ library
   c-sources:           cbits/sum.c
   cc-options:          -Wall -O2
   build-depends:       base >= 4.7 && < 5
+                     , ghc-prim
+                     , primitive
                      , vector
   default-language:    Haskell2010
-  ghc-options:         -Wall
+  ghc-options:         -Wall -fllvm
 
 test-suite vector-simd-test
   type:                exitcode-stdio-1.0
@@ -33,14 +35,14 @@ test-suite vector-simd-test
                      , hspec
                      , vector
                      , QuickCheck
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2
+  ghc-options:         -fllvm -threaded -rtsopts -with-rtsopts=-N -O2
   default-language:    Haskell2010
 
 benchmark vector-simd-bench
   type:                exitcode-stdio-1.0
   main-is:             Bench.hs
   hs-source-dirs:      bench
-  ghc-options:         -Wall -O2
+  ghc-options:         -fllvm -Wall -O2
   build-depends:       base
                      , vector
                      , vector-simd
